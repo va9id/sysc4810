@@ -14,7 +14,7 @@ class RBAC:
 
     def list_capabilities(self, role: str) -> None:
         if role in self.__roles:
-            print("\nYour capabilites include: ")
+            print("Your capabilites include: ")
             capabilities = self.__capabilities[role]
             for capability in capabilities:
                 print(f"\t{capability}")

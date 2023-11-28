@@ -104,13 +104,16 @@ if __name__ == "__main__":
 
         if password.check_username_exists(u):
             if password.login(u, p):
-                record = password.get_user_record(u)[3]
-                print(f"\nWelcome {record[3]} {record[0]}\n")
-                if role != "T":
+                print("ACCESS GRANTED\n")
+                record = password.get_user_record(u)
+                print(f"Welcome {ROLES[record[3]]} {record[0]}\n")
+                if record[3] != "T":
                     rbac.list_capabilities(record[3])
+                    break
                 else:
                     if is_during_working_hours():
                         rbac.list_capabilities(record[3])
+                        break
                     else:
                         print(
                             "You have no accesses because it is not during the working hours (09:00 - 17:00)"
@@ -126,11 +129,16 @@ if __name__ == "__main__":
                 if role not in ROLES.keys():
                     print("Invalid role, try again")
                 else:
+                    password.write_to_passwd(u, p, role)
+                    print("\nACCESS GRANTED\n")
+                    print(f"Welcome {ROLES[role]} {u}\n")
                     if role != "T":
                         rbac.list_capabilities(role)
+                        break
                     else:
                         if is_during_working_hours():
-                            rbac.list_capabilities(record[3])
+                            rbac.list_capabilities(role)
+                            break
                         else:
                             print(
                                 "You have no accesses because it is not during the working hours (09:00 - 17:00)"
