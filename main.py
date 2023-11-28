@@ -1,5 +1,18 @@
 from rbac import RBAC
-import password
+from datetime import datetime, time
+import password, getpass
+
+
+ROLES = {
+    "C": "Client (C)",
+    "PC": "Premium Client (PC)",
+    "FA": "Financial Analyst (FA)",
+    "FP": "Financial Planner (FP)",
+    "IA": "Investment Analyst (IA)",
+    "TS": "Tech Support (TS)",
+    "T": "Teller (T)",
+    "CO": "Compliance Officer (CO)",
+}
 
 
 def add_roles_to_rbac(rbac: RBAC) -> RBAC:
@@ -66,11 +79,64 @@ def add_role_capabilities(rbac: RBAC) -> RBAC:
     return rbac
 
 
+def is_during_working_hours() -> bool:
+    current_time = datetime.now().time()
+    start_time = time(9, 0)
+    end_time = time(17, 0)
+    if start_time <= current_time <= end_time:
+        return True
+    else:
+        return False
+
+
 if __name__ == "__main__":
     rbac = RBAC()
     add_roles_to_rbac(rbac)
     add_role_capabilities(rbac)
-    rbac.list_capabilities("FP")
+
+    print("Finvest Holdings")
+    print("Client Holdings and Information System")
+    print("-------------------------------------------")
+
+    while True:
+        u = input("Enter username: ")
+        p = getpass.getpass("Enter password: ")
+
+        if password.check_username_exists(u):
+            if password.login(u, p):
+                record = password.get_user_record(u)[3]
+                print(f"\nWelcome {record[3]} {record[0]}\n")
+                if role != "T":
+                    rbac.list_capabilities(record[3])
+                else:
+                    if is_during_working_hours():
+                        rbac.list_capabilities(record[3])
+                    else:
+                        print(
+                            "You have no accesses because it is not during the working hours (09:00 - 17:00)"
+                        )
+
+            else:
+                print("Invalid password, try again\n")
+        else:
+            if password.valid_password(u, p, exclusions=password.get_exclusions()):
+                print("\nYou are a new user\nFinvest Holdings Roles are: ")
+                print(", ".join(str(value) for value in ROLES.values()))
+                role = input("Please enter the abbreviation of your role: ")
+                if role not in ROLES.keys():
+                    print("Invalid role, try again")
+                else:
+                    if role != "T":
+                        rbac.list_capabilities(role)
+                    else:
+                        if is_during_working_hours():
+                            rbac.list_capabilities(record[3])
+                        else:
+                            print(
+                                "You have no accesses because it is not during the working hours (09:00 - 17:00)"
+                            )
+            else:
+                print("Invalid password")
 
     # exclusions = password.get_exclusions()
     #  # print(password.check_username_exists("vahid1"))

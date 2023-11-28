@@ -20,29 +20,37 @@ COMMON_FORMATS = [
 ]
 
 
-def passwordChecker(user_id: int, password: str, exclusions: list[str] = None) -> bool:
+def valid_password(user_id: int, password: str, exclusions: list[str] = None) -> bool:
     if not (8 <= len(password) <= 12):
+        print("Password must be between 8 and 12 characters")
         return False
 
     if not any(c.isupper() for c in password):
+        print("Password must contain an uppercase character")
         return False
 
     if not any(c.islower() for c in password):
+        print("Password must contain a lowercase character")
         return False
 
     if not any(c.isdigit() for c in password):
+        print("Password must contain a numerical digit")
         return False
 
     if not any(c in SPECIAL_CHARACTERS for c in password):
+        print("Password must contain a special character {!, @, #, $, %, ?, *}")
         return False
 
     if password == user_id:
+        print("Password cannot equal username")
         return False
 
     if any(re.match(format, password) for format in COMMON_FORMATS):
+        print("Password cannot be in a numerical format")
         return False
 
     if any(weak_pass.lower() in password.lower() for weak_pass in exclusions):
+        print("Password is too weak")
         return False
 
     return True

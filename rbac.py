@@ -3,18 +3,18 @@ class RBAC:
         self.__roles = []
         self.__capabilities = {}
 
-    def add_role(self, role: str):
+    def add_role(self, role: str) -> None:
         if role not in self.__roles:
             self.__roles.append(role)
             self.__capabilities[role] = set()
 
-    def add_capability(self, role: str, capability: str):
+    def add_capability(self, role: str, capability: str) -> None:
         if role in self.__roles:
             self.__capabilities[role].add(capability)
 
-    def list_capabilities(self, role: str):
+    def list_capabilities(self, role: str) -> None:
         if role in self.__roles:
-            print("Your capabilites include: ")
+            print("\nYour capabilites include: ")
             capabilities = self.__capabilities[role]
             for capability in capabilities:
-                print(capability)
+                print(f"\t{capability}")
