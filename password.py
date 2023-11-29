@@ -20,7 +20,7 @@ COMMON_FORMATS = [
 ]
 
 
-def valid_password(user_id: int, password: str, exclusions: list[str] = None) -> bool:
+def valid_password(username: int, password: str, exclusions: list[str] = None) -> bool:
     if not (8 <= len(password) <= 12):
         print("Password must be between 8 and 12 characters")
         return False
@@ -41,8 +41,8 @@ def valid_password(user_id: int, password: str, exclusions: list[str] = None) ->
         print("Password must contain a special character {!, @, #, $, %, ?, *}")
         return False
 
-    if password == user_id:
-        print("Password cannot equal username")
+    if username in password:
+        print("Password cannot contain the username")
         return False
 
     if any(re.match(format, password) for format in COMMON_FORMATS):
