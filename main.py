@@ -1,5 +1,4 @@
 from rbac import RBAC
-from datetime import datetime, time
 import password, getpass
 
 
@@ -79,16 +78,6 @@ def add_role_capabilities(rbac: RBAC) -> RBAC:
     return rbac
 
 
-def is_during_working_hours() -> bool:
-    current_time = datetime.now().time()
-    start_time = time(9, 0)
-    end_time = time(17, 0)
-    if start_time <= current_time <= end_time:
-        return True
-    else:
-        return False
-
-
 if __name__ == "__main__":
     rbac = RBAC()
     add_roles_to_rbac(rbac)
@@ -107,18 +96,8 @@ if __name__ == "__main__":
                 print("ACCESS GRANTED\n")
                 record = password.get_user_record(u)
                 print(f"Welcome {ROLES[record[3]]} {record[0]}\n")
-                if record[3] != "T":
-                    rbac.list_capabilities(record[3])
-                    break
-                else:
-                    if is_during_working_hours():
-                        rbac.list_capabilities(record[3])
-                        break
-                    else:
-                        print(
-                            "You have no accesses because it is not during the working hours (09:00 - 17:00)"
-                        )
-
+                rbac.list_capabilities(record[3])
+                break
             else:
                 print("Invalid password, try again\n")
         else:
@@ -132,15 +111,7 @@ if __name__ == "__main__":
                     password.write_to_passwd(u, p, role)
                     print("\nACCESS GRANTED\n")
                     print(f"Welcome {ROLES[role]} {u}\n")
-                    if role != "T":
-                        rbac.list_capabilities(role)
-                    else:
-                        if is_during_working_hours():
-                            rbac.list_capabilities(role)
-                        else:
-                            print(
-                                "You have no accesses because it is not during the working hours (09:00 - 17:00)"
-                            )
+                    rbac.list_capabilities(role)
                     break
             else:
                 print("Invalid password")
