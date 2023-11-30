@@ -127,22 +127,21 @@ if __name__ == "__main__":
                 print(", ".join(str(value) for value in ROLES.values()))
                 role = input("Please enter the abbreviation of your role: ")
                 if role not in ROLES.keys():
-                    print("Invalid role, try again")
+                    print("Invalid role caused enrollment to fail, try again")
                 else:
                     password.write_to_passwd(u, p, role)
                     print("\nACCESS GRANTED\n")
                     print(f"Welcome {ROLES[role]} {u}\n")
                     if role != "T":
                         rbac.list_capabilities(role)
-                        break
                     else:
                         if is_during_working_hours():
                             rbac.list_capabilities(role)
-                            break
                         else:
                             print(
                                 "You have no accesses because it is not during the working hours (09:00 - 17:00)"
                             )
+                    break
             else:
                 print("Invalid password")
 

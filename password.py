@@ -1,6 +1,6 @@
-import os, hashlib, re, unittest
+import os, hashlib, re
 
-SPECIAL_CHARACTERS = {"!", "@", "#", "$", "%", "?", "∗"}
+SPECIAL_CHARACTERS = {"!", "@", "#", "$", "%", "?", "*"}
 COMMON_FORMATS = [
     # Calendar date formats
     r"\d{4}-\d{2}-\d{2}",
