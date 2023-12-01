@@ -57,7 +57,7 @@ def valid_password(username: int, password: str, exclusions: list[str] = None) -
 
 
 def check_username_exists(username: str) -> bool:
-    with open("passwd.txt", "r") as passwd_file:
+    with open("etc/passwd.txt", "r") as passwd_file:
         for line in passwd_file:
             record = line.strip().split(":")
             if record and record[0] == username:
@@ -66,7 +66,7 @@ def check_username_exists(username: str) -> bool:
 
 
 def get_user_record(username: str) -> list:
-    with open("passwd.txt", "r") as passwd_file:
+    with open("etc/passwd.txt", "r") as passwd_file:
         for line in passwd_file:
             record = line.strip().split(":")
             if record and record[0] == username:
@@ -75,7 +75,7 @@ def get_user_record(username: str) -> list:
 
 
 def login(username: str, password: str) -> bool:
-    with open("passwd.txt", "r") as passwd_file:
+    with open("etc/passwd.txt", "r") as passwd_file:
         for line in passwd_file:
             record = line.strip().split(":")
             if record and record[0] == username:
@@ -88,7 +88,7 @@ def write_to_passwd(username: str, password: str, role: str) -> None:
     salt = str(os.urandom(32).hex())  # 32 bytes = 256 bits
     hashed_pass = hash_password(salt, password)
     record = f"{username}:{salt}:{hashed_pass}:{role}\n"
-    with open("passwd.txt", "a") as passwd_file:
+    with open("etc/passwd.txt", "a") as passwd_file:
         passwd_file.write(record)
 
 
@@ -97,10 +97,10 @@ def hash_password(salt: str, password: str) -> str:
 
 
 def get_exclusions() -> list[str]:
-    with open("exclusions.txt", "r") as exclusions:
+    with open("etc/exclusions.txt", "r") as exclusions:
         return exclusions.read().splitlines()
 
 
 def add_exclusion(exclusion: str) -> None:
-    with open("exclusions.txt", "a") as exclusions:
+    with open("etc/exclusions.txt", "a") as exclusions:
         exclusions.write(f"{exclusion}\n")

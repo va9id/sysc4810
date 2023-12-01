@@ -2,7 +2,7 @@ import password, unittest
 
 
 class TestAssignment(unittest.TestCase):
-    def test_password_file_mechanims(self):
+    def test_password_file_mechanism(self):
         u1, u2, u3 = "vahid", "john doe", "random"
         p1, p2 = "xyz32*#N2", "ClaOs008!"
         r1, r2 = "FA", "CO"
