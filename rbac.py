@@ -15,6 +15,9 @@ class RBAC:
         if role in self.__roles:
             self.__capabilities[role].add(capability)
 
+    def get_roles(self) -> list:
+        return self.__roles
+
     def list_capabilities(self, role: str) -> None:
         if role in self.__roles:
             # If the roll is a Teller and its outside of working access, deny access

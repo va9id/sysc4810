@@ -105,7 +105,7 @@ if __name__ == "__main__":
                 print("\nYou are a new user\nFinvest Holdings Roles are: ")
                 print(", ".join(str(value) for value in ROLES.values()))
                 role = input("Please enter the abbreviation of your role: ")
-                if role not in ROLES.keys():
+                if role not in rbac.get_roles():
                     print("Invalid role caused enrollment to fail, try again")
                 else:
                     password.write_to_passwd(u, p, role)
@@ -115,8 +115,3 @@ if __name__ == "__main__":
                     break
             else:
                 print("Invalid password")
-
-    # exclusions = password.get_exclusions()
-    #  # print(password.check_username_exists("vahid1"))
-    # password.write_to_passwd("vahid", "fjdI*323f", "IA")
-    # print(password.login("vahid", "fjdI*323f"))
