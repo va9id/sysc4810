@@ -58,7 +58,7 @@ class TestAssignment(unittest.TestCase):
             )
 
     def test_user_login(self):
-        u, r = "vahid", "TS"
+        u, r = "vahid1", "TS"
         real_pas, wrong_pas = "Xyzabcdef1!", "XyzabDEC1!"
         not_real_u, not_real_pass = "notInSystem", "Yuni*#4ds"
         password.write_to_passwd(u, real_pas, r)
