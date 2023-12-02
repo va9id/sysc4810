@@ -12,7 +12,7 @@ This repo contains the Access Control System assignment from SYSC 4810: Network 
    ```
 
 ## Tests
-Run all the unit tests for the password file mechanism and the proactive password checker. 
+Run all the unit tests for the password file mechanism, proactive password checker, and user login. 
 ```python
-python -m unittest tests/test.py
+python -m unittest
 ```

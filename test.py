@@ -57,6 +57,16 @@ class TestAssignment(unittest.TestCase):
                 expected_result,
             )
 
+    def test_user_login(self):
+        u, r = "vahid", "TS"
+        real_pas, wrong_pas = "Xyzabcdef1!", "XyzabDEC1!"
+        not_real_u, not_real_pass = "notInSystem", "Yuni*#4ds"
+        password.write_to_passwd(u, real_pas, r)
+
+        self.assertTrue(password.login(u, real_pas))
+        self.assertFalse(password.login(u, wrong_pas))
+        self.assertFalse(password.login(not_real_u, not_real_pass))
+
 
 if __name__ == "__main__":
     unittest.main()
