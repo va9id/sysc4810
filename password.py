@@ -20,7 +20,7 @@ COMMON_FORMATS = [
 ]
 
 
-def valid_password(username: int, password: str, exclusions: list[str] = None) -> bool:
+def valid_password(username: int, password: str, exclusions: list = None) -> bool:
     if not (8 <= len(password) <= 12):
         print("Password must be between 8 and 12 characters")
         return False
@@ -96,7 +96,7 @@ def hash_password(salt: str, password: str) -> str:
     return hashlib.sha256((salt + password).encode()).hexdigest()
 
 
-def get_exclusions() -> list[str]:
+def get_exclusions() -> list:
     with open("etc/exclusions.txt", "r") as exclusions:
         return exclusions.read().splitlines()
 
