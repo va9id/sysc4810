@@ -5,7 +5,7 @@ import password, getpass
 ROLES = {
     "C": "Client (C)",
     "PC": "Premium Client (PC)",
-    "FA": "Financial Analyst (FA)",
+    "FA": "Financial Advisor (FA)",
     "FP": "Financial Planner (FP)",
     "IA": "Investment Analyst (IA)",
     "TS": "Tech Support (TS)",
